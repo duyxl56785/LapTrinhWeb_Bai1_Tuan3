@@ -1,0 +1,50 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Kiểm tra cuối tuần";
+
+    var today = DateTime.Today;
+    var dayOfWeek = today.DayOfWeek;
+    bool isWeekend = (dayOfWeek == DayOfWeek.Saturday || dayOfWeek == DayOfWeek.Sunday);
+
+    // Chuyển DayOfWeek sang tiếng Việt
+    string tenThu = dayOfWeek switch
+    {
+        DayOfWeek.Monday => "Thứ Hai",
+        DayOfWeek.Tuesday => "Thứ Ba",
+        DayOfWeek.Wednesday => "Thứ Tư",
+        DayOfWeek.Thursday => "Thứ Năm",
+        DayOfWeek.Friday => "Thứ Sáu",
+        DayOfWeek.Saturday => "Thứ Bảy",
+        DayOfWeek.Sunday => "Chủ Nhật",
+        _ => ""
+    };
+}
+
+<!-- Nhúng file CSS vừa tạo từ thư mục wwwroot/css -->
+<link rel="stylesheet" href="~/css/weekend.css" asp-append-version="true" />
+
+<div class="weekend-container">
+    <div class="weekend-card">
+        <div class="badge-date">
+            Hôm nay: <span class="highlight-day">@tenThu</span>, ngày @today.ToString("dd/MM/yyyy")
+        </div>
+
+        @if (isWeekend)
+        {
+            <div class="status-box status-weekend">
+                <span class="icon-symbol">🎉</span>
+                Hôm nay là cuối tuần!<br />
+                <span class="sub-text">Nghỉ ngơi và nạp lại năng lượng nhé.</span>
+            </div>
+        }
+        else
+        {
+            <div class="status-box status-weekday">
+                <span class="icon-symbol">💼</span>
+                Hôm nay là ngày trong tuần.<br />
+                <span class="sub-text">Chúc bạn một ngày học tập và làm việc thật tốt!</span>
+            </div>
+        }
+    </div>
+</div>

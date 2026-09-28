@@ -1,0 +1,48 @@
+﻿@page
+@using Kiemtracuoituan.Models 
+@{
+    ViewData["Title"] = "Danh sách sản phẩm";
+
+    // Khởi tạo danh sách sản phẩm mẫu ngay trong View
+    var products = new List<Product>
+    {
+        new Product { Id = 1, Name = "Bàn phím cơ DareU EK87", Price = 590000 },
+        new Product { Id = 2, Name = "Chuột gaming Logitech G102", Price = 399000 },
+        new Product { Id = 3, Name = "Tai nghe chụp tai Sony WH-CH520", Price = 1190000 },
+        new Product { Id = 4, Name = "Lót chuột size lớn (90x40cm)", Price = 120000 },
+        new Product { Id = 5, Name = "Màn hình Asus 24 inch 144Hz", Price = 3290000 }
+    };
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-primary fw-bold">Danh sách sản phẩm</h2>
+        <span class="badge bg-secondary fs-6">Tổng số: @products.Count sản phẩm</span>
+    </div>
+
+    <div class="table-responsive shadow-sm rounded">
+        <table class="table table-bordered table-hover align-middle mb-0">
+            <thead class="table-dark text-center">
+                <tr>
+                    <th style="width: 80px;">Mã (ID)</th>
+                    <th>Tên sản phẩm</th>
+                    <th style="width: 200px;">Đơn giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                @* Dùng vòng lặp foreach để duyệt qua từng sản phẩm trong danh sách *@
+                @foreach (var item in products)
+                {
+                    <tr>
+                        <td class="text-center fw-bold">@item.Id</td>
+                        <td>@item.Name</td>
+                        <td class="text-end text-success fw-bold">
+                            @* Định dạng tiền tệ theo chuẩn số (ví dụ: 590,000 đ) *@
+                            @item.Price.ToString("#,##0") đ
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
